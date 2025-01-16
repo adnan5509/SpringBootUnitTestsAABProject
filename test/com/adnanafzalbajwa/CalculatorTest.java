@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -84,6 +85,15 @@ class CalculatorTest {
             "18,17,1",
     })
     public void divideSubtract_WhenValidInputsFromCsvSource_ReturnValidOutput(int a, int b, int expectedResult) {
+
+        double result = calculator.subtract(a, b);
+        assertEquals(expectedResult, result, () -> a + " subtract " + b + " should be " + expectedResult);
+    }
+
+    @DisplayName("Subtract Valid Inputs, Valid Output (CSV File Source)")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/subtractTestParameters.csv")
+    public void divideSubtract_WhenValidInputsFromCsvFileSource_ReturnValidOutput(int a, int b, int expectedResult) {
 
         double result = calculator.subtract(a, b);
         assertEquals(expectedResult, result, () -> a + " subtract " + b + " should be " + expectedResult);
