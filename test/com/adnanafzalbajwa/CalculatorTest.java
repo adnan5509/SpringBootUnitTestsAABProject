@@ -5,7 +5,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -98,5 +101,18 @@ class CalculatorTest {
         double result = calculator.subtract(a, b);
         assertEquals(expectedResult, result, () -> a + " subtract " + b + " should be " + expectedResult);
     }
+
+    @DisplayName("Divide by Zero, Arithmetic Exception (Repeated Test)")
+    @RepeatedTest(3)
+    public void divideTest_WhenDivideByZeroRepeatedTest_ThrowArithmeticException(RepetitionInfo repetitionInfo, TestInfo testInfo) {
+        int dividend = 9;
+        int divisor = 0;
+        System.out.println(repetitionInfo.getCurrentRepetition() + " of " + testInfo.getTestMethod().get().getName());
+        ArithmeticException exception = assertThrows(ArithmeticException.class, () -> calculator.divide(dividend, divisor),
+                "Divide by zero should give Arithmetic Exception");
+
+        assertEquals("/ by zero", exception.getMessage());
+    }
+
 
 }
