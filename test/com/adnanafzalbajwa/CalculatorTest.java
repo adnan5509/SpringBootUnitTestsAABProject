@@ -103,7 +103,7 @@ class CalculatorTest {
     }
 
     @DisplayName("Divide by Zero, Arithmetic Exception (Repeated Test)")
-    @RepeatedTest(3)
+    @RepeatedTest(value = 3, name = "{displayName}. Repetition {currentRepetition} of {totalRepetitions}")
     public void divideTest_WhenDivideByZeroRepeatedTest_ThrowArithmeticException(RepetitionInfo repetitionInfo, TestInfo testInfo) {
         int dividend = 9;
         int divisor = 0;
